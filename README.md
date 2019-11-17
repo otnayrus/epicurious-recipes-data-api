@@ -140,6 +140,19 @@ sh.addShard( "mongo-shard-2:27017" )
 sh.addShard( "mongo-shard-3:27017" )
 ```
 
+### Mengaktifkan Sharding pada Level Collection
+Membuka koneksi ke query router dari node shard. Pastikan semua node shard menjalankan service `mongod`
+```
+$ mongo mongo-query-router:27017 -u mongo-admin -p --authenticationDatabase admin
+```
+Melakukan beberapa konfigurasi pada shell mongo
+```
+use epicuriousDB
+
+db.recipesCollection.ensureIndex( { _id : "hashed" } )
+
+sh.shardCollection( "epicuriousDB.recipesCollection", { "_id" : "hashed" } )
+```
 ### Referensi
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 - https://www.linode.com/docs/databases/mongodb/build-database-clusters-with-mongodb/
