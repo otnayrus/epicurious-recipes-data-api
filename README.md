@@ -153,6 +153,10 @@ db.recipesCollection.ensureIndex( { _id : "hashed" } )
 
 sh.shardCollection( "epicuriousDB.recipesCollection", { "_id" : "hashed" } )
 ```
+
+## Memuat data dari dataset
+Menjalankan script `factory.py` kemudian buka `localhost:5000` (default) pada browser untuk memuat data. File data diperoleh dari kaggle, pada script ini, lokasi data adalah pada `'../data/full_format_recipes.json'`.
+
 ### Referensi
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 - https://www.linode.com/docs/databases/mongodb/build-database-clusters-with-mongodb/
