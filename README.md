@@ -154,6 +154,18 @@ db.recipesCollection.ensureIndex( { _id : "hashed" } )
 sh.shardCollection( "epicuriousDB.recipesCollection", { "_id" : "hashed" } )
 ```
 
+## Membuat user untuk akses dari App
+Proses ini dilakukan pada panel admin `mongos` router
+```
+$ mongo mongo-query-router:27017 -u mongo-admin -p --authenticationDatabase admin
+```
+Melakukan registrasi user pada database epicuriousDB
+```
+use epicuriousDB
+
+db.createUser({user:"epic-user",pwd:"password",roles: [ "readWrite", "dbAdmin" ]})
+```
+
 ## Memuat data dari dataset
 Menjalankan script `factory.py` kemudian buka `localhost:5000` (default) pada browser untuk memuat data. File data diperoleh dari kaggle, pada script ini, lokasi data adalah pada `'../data/full_format_recipes.json'`.
 
