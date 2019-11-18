@@ -1,6 +1,43 @@
 # Epicurious' Recipes Collections
 Sebuah implementasi API koleksi resep Epicurous yang ditulis dengan Python dengan penyimpanan berbasis klaster mongoDB
 
+## Skema Infrastruktur
+
+- Config Servers
+    1. mongo-config-1
+        - OS  : Ubuntu 18.04
+        - RAM : 512 MB
+        - CPUs: 1
+        - IP  : 192.168.16.64
+    2. mongo-config-2
+        - OS  : Ubuntu 18.04
+        - RAM : 512 MB
+        - CPUs: 1
+        - IP  : 192.168.16.65
+- Query Router Server
+    1. mongo-query-router
+        - OS  : Ubuntu 18.04
+        - RAM : 512 MB
+        - CPUs: 1
+        - IP  : 192.168.16.66
+- Storage Servers
+    1. mongo-shard-1
+        - OS  : Ubuntu 18.04
+        - RAM : 512 MB
+        - CPUs: 1
+        - IP  : 192.168.16.67
+    2. mongo-shard-2
+        - OS  : Ubuntu 18.04
+        - RAM : 512 MB
+        - CPUs: 1
+        - IP  : 192.168.16.68
+    2. mongo-shard-3
+        - OS  : Ubuntu 18.04
+        - RAM : 512 MB
+        - CPUs: 1
+        - IP  : 192.168.16.69  
+
+
 ## Konfigurasi MongoDB Cluster
 
 ### Konfigurasi File Hosts
@@ -169,6 +206,22 @@ db.createUser({user:"epic-user",pwd:"password",roles: [ "readWrite", "dbAdmin" ]
 ## Memuat data dari dataset
 Menjalankan script `factory.py` kemudian buka `localhost:5000` (default) pada browser untuk memuat data. File data diperoleh dari kaggle, pada script ini, lokasi data adalah pada `'../data/full_format_recipes.json'`.
 
-### Referensi
+Hasil loading dataset :
+
+<img src="img/sharddist.jpg" alt="Distribusi Data pada Shard" width="450"/>
+
+## Membuat koneksi dari App ke Database
+Menggunakan `pymongo` sebagai driver penghubung antara aplikasi (Python-Flask) dengan Database (MongoDB), dengan menggunakan potongan script berikut
+```
+from flask import Flask
+from flask_pymongo import PyMongo
+
+
+app = Flask(__name__)
+app.config["MONGO_URI"] = "mongodb://epic-user:password@192.168.16.66:27017/epicuriousDB"
+mongo = PyMongo(app, retryWrites=False)
+```
+
+## Referensi
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 - https://www.linode.com/docs/databases/mongodb/build-database-clusters-with-mongodb/
