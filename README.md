@@ -224,28 +224,28 @@ Menjalankan script `factory.py` kemudian buka `localhost:5000` (default) pada br
 
 Hasil loading dataset :
 
-<img src="img/sharddist.jpg" alt="Distribusi Data pada Shard" width="450"/>
+<img src="img/sharddist.JPG" alt="Distribusi Data pada Shard" width="450"/>
 
 ### Create New Recipe
 
-<img src="img/create.jpg" alt="New Recipe" width="450"/>
+<img src="img/create.JPG" alt="New Recipe" width="450"/>
 
 
 ### Show Recipe Catalogue
 
-<img src="img/read.jpg" alt="Catalogue" width="550"/>
+<img src="img/read.JPG" alt="Catalogue" width="550"/>
 
 ### Update a Recipe
 
-<img src="img/update.jpg" alt="Update Recipe" width="450"/>
+<img src="img/update.JPG" alt="Update Recipe" width="450"/>
 
 ### Delete a Recipe
 
-<img src="img/delete.jpg" alt="Delete Recipe" width="450"/>
+<img src="img/delete.JPG" alt="Delete Recipe" width="450"/>
 
 ### Recipes Statistics
 
-<img src="img/stats.jpg" alt="New Recipe" width="550"/>
+<img src="img/stats.JPG" alt="New Recipe" width="550"/>
 
 ## Referensi
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
