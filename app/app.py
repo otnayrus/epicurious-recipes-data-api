@@ -56,6 +56,36 @@ def update_recipe():
     return jsonify({"success":"RECIPE HAS BEEN UPDATED ON THE CATALOGUE"})
 
 
+# DB Statistics Page
+@app.route('/stats', methods = ['GET'])
+def stats():
+    data = {}
+    data['count'] = mongo.db.recipesCollection.count_documents({})
+    data['rating_dist'] = mongo.db.recipesCollection.aggregate([
+        {
+            "$group": {
+                "_id":"$rating",
+                "count":{"$sum":1}
+            }
+        }
+    ])
+    data['avg_calories_rating'] = mongo.db.recipesCollection.aggregate([
+        {
+            "$group": {
+                "_id":"$rating",
+                "avg_cal":{"$avg":"$calories"}
+            }
+        }
+    ])
+
+    response = app.response_class(
+        response=json_util.dumps(data),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
+
 def removekey(d, key):
     r = dict(d)
     del r[key]
