@@ -1,6 +1,8 @@
 # Epicurious' Recipes Collections
 Sebuah implementasi API koleksi resep Epicurous yang ditulis dengan Python dengan penyimpanan berbasis klaster mongoDB
 
+<strong>Vinsensius Indra S. 05111640000064</strong>
+
 ## Skema Infrastruktur
 
 - Config Servers
@@ -191,7 +193,9 @@ db.recipesCollection.ensureIndex( { _id : "hashed" } )
 sh.shardCollection( "epicuriousDB.recipesCollection", { "_id" : "hashed" } )
 ```
 
-## Membuat user untuk akses dari App
+## Membuat koneksi dari Aplikasi
+
+### Membuat user untuk akses dari App
 Proses ini dilakukan pada panel admin `mongos` router
 ```
 $ mongo mongo-query-router:27017 -u mongo-admin -p --authenticationDatabase admin
@@ -203,14 +207,7 @@ use epicuriousDB
 db.createUser({user:"epic-user",pwd:"password",roles: [ "readWrite", "dbAdmin" ]})
 ```
 
-## Memuat data dari dataset
-Menjalankan script `factory.py` kemudian buka `localhost:5000` (default) pada browser untuk memuat data. File data diperoleh dari kaggle, pada script ini, lokasi data adalah pada `'../data/full_format_recipes.json'`.
-
-Hasil loading dataset :
-
-<img src="img/sharddist.jpg" alt="Distribusi Data pada Shard" width="450"/>
-
-## Membuat koneksi dari App ke Database
+### Membuat koneksi dari App ke Database
 Menggunakan `pymongo` sebagai driver penghubung antara aplikasi (Python-Flask) dengan Database (MongoDB), dengan menggunakan potongan script berikut
 ```
 from flask import Flask
@@ -222,6 +219,35 @@ app.config["MONGO_URI"] = "mongodb://epic-user:password@192.168.16.66:27017/epic
 mongo = PyMongo(app, retryWrites=False)
 ```
 
+### Memuat data dari dataset
+Menjalankan script `factory.py` kemudian buka `localhost:5000` (default) pada browser untuk memuat data. File data diperoleh dari kaggle, pada script ini, lokasi data adalah pada `'../data/full_format_recipes.json'`.
+
+Hasil loading dataset :
+
+<img src="img/sharddist.jpg" alt="Distribusi Data pada Shard" width="450"/>
+
+### Create New Recipe
+
+<img src="img/create.jpg" alt="New Recipe" width="450"/>
+
+
+### Show Recipe Catalogue
+
+<img src="img/read.jpg" alt="Catalogue" width="550"/>
+
+### Update a Recipe
+
+<img src="img/update.jpg" alt="Update Recipe" width="450"/>
+
+### Delete a Recipe
+
+<img src="img/delete.jpg" alt="Delete Recipe" width="450"/>
+
+### Recipes Statistics
+
+<img src="img/stats.jpg" alt="New Recipe" width="550"/>
+
 ## Referensi
 - https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 - https://www.linode.com/docs/databases/mongodb/build-database-clusters-with-mongodb/
+- https://www.kaggle.com/hugodarwood/epirecipes
